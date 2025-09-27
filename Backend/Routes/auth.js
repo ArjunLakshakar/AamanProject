@@ -2,13 +2,18 @@ import express from "express";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import { auth } from "../middleware/auth.js";
-import { me, signinOtp, signupOtp, verifyOtp } from "../Controller/authController.js";
+import { me, resetPassword, signin, signinOtp, signup,  verifyOtp } from "../Controller/authController.js";
 
 const router = express.Router();
+  
+router.post('/signup', signup)
+router.post('/signin', signin)
 
-router.post("/signup-otp", signupOtp);
+// router.post("/signup-otp", signupOtp);
 router.post("/signin-otp", signinOtp);
 router.post("/verify-otp", verifyOtp);
+router.post("/resetPassword", resetPassword);
+
 router.get("/me", auth, me);
 
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
